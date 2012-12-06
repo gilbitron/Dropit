@@ -1,4 +1,1 @@
-Dropit
-======
-
-Dropit is a jQuery plugin for single level dropdown menu's
+Stupidly Simple jQuery Dropdowns - http://dev7studios.com/dropit
