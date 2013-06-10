@@ -27,7 +27,11 @@
                     
                     // Open on click
                     $el.on(settings.action, settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl +'', function(){
-                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open')) return false;
+                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open')) {
+                            hide_menu(el, settings);
+                            return false;
+                        }
+                        position_menu($el, settings.align);
                         settings.beforeHide.call(this);
                         $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
                         settings.afterHide.call(this);
@@ -61,17 +65,41 @@
     }
 
     $.fn.dropit.defaults = {
-        action: 'click', // The open action for the trigger
-        submenuEl: 'ul', // The submenu element
-        triggerEl: 'a', // The trigger element
-        triggerParentEl: 'li', // The trigger parent element
-        afterLoad: function(){}, // Triggers when plugin has loaded
-        beforeShow: function(){}, // Triggers before submenu is shown
-        afterShow: function(){}, // Triggers after submenu is shown
-        beforeHide: function(){}, // Triggers before submenu is hidden
-        afterHide: function(){} // Triggers before submenu is hidden
+        action:          'click',       // The open action for the trigger
+        submenuEl:       'ul',          // The submenu element
+        triggerEl:       'a',           // The trigger element
+        triggerParentEl: 'li',          // The trigger parent element
+        align:           'left',        // alignment of menu relative to trigger
+        afterLoad:       function(){},  // Triggers when plugin has loaded
+        beforeShow:      function(){},  // Triggers before submenu is shown
+        afterShow:       function(){},  // Triggers after submenu is shown
+        beforeHide:      function(){},  // Triggers before submenu is hidden
+        afterHide:       function(){}   // Triggers before submenu is hidden
     }
 
     $.fn.dropit.settings = {}
+
+    function hide_menu ( el, settings ) {
+        settings.beforeHide.call(el);
+        $(el).find('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+        settings.afterHide.call(el);
+    };
+
+    function position_menu ( $obj, alignment ) {
+        var trigger_width = $obj.find('.dropit-trigger').outerWidth();
+        var menu_width    = $obj.find('.dropit-submenu').outerWidth();
+        $obj.find('.dropit-submenu').css('top', $obj.find('dropit-trigger').outerHeight() + 'px');
+        switch (alignment) {
+            case 'right':
+                $obj.find('.dropit-submenu').css('left', (trigger_width - menu_width) + 'px');
+                break;
+            case 'left':
+                $obj.find('.dropit-submenu').css('left', '0px');
+                break;
+            case 'center':
+                $obj.find('.dropit-submenu').css('left', Math.floor((trigger_width - menu_width) / 2) + 'px');
+                break;
+        };
+    };
 
 })(jQuery);
