@@ -43,9 +43,7 @@
                     
                     // Close if outside click
                     $(document).on('click', function(){
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
+                        hide_menu(el, settings);
                     });
                     
                     settings.afterLoad.call(this);
