@@ -23,16 +23,18 @@
                     // Hide initial submenus     
                     $el.addClass('dropit')
                     .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger')
-                    .find(settings.submenuEl).addClass('dropit-submenu').hide();
+                    .find(settings.submenuEl).addClass('dropit-submenu');
                     
                     // Open on click
                     $el.on(settings.action, settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl +'', function(){
-                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open')) return false;
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
+                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open')) {
+                            settings.beforeHide.call(this);
+                            $('.dropit-open').removeClass('dropit-open');
+                            settings.afterHide.call(this);                           
+                            return false;
+                        }
                         settings.beforeShow.call(this);
-                        $(this).parents(settings.triggerParentEl).addClass('dropit-open').find(settings.submenuEl).show();
+                        $(this).parents(settings.triggerParentEl).addClass('dropit-open');
                         settings.afterShow.call(this);
                         return false;
                     });
@@ -40,7 +42,7 @@
                     // Close if outside click
                     $(document).on('click', function(){
                         settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                        $('.dropit-open').removeClass('dropit-open');
                         settings.afterHide.call(this);
                     });
                     
@@ -71,7 +73,5 @@
         beforeHide: function(){}, // Triggers before submenu is hidden
         afterHide: function(){} // Triggers before submenu is hidden
     }
-
-    $.fn.dropit.settings = {}
 
 })(jQuery);
