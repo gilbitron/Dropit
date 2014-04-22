@@ -1,0 +1,24 @@
+{
+  "name": "Dropit",
+  "main": "dropit.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/popc0rn/Dropit",
+  "authors": [
+    "Luka Vidakovic <luka.vidakovic@gmail.com>"
+  ],
+  "description": "Simple drop-down jQuery plugin refactored/enhanced version of gilbitron/Dropit",
+  "keywords": [
+    "dropdown",
+    "plugin",
+    "dropit",
+    "simple"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
