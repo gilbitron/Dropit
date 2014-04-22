@@ -15,6 +15,7 @@
 
             init : function(options) {
                 this.dropit.settings = $.extend({}, this.dropit.defaults, options);
+                var dropdowns = this;
                 return this.each(function() {
                     var $el = $(this),
                          el = this,
@@ -23,16 +24,25 @@
                     // Hide initial submenus     
                     $el.addClass('dropit')
                     .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger')
-                    .find(settings.submenuEl).addClass('dropit-submenu').hide();
+                    .find(settings.submenuEl).addClass('dropit-submenu');
                     
                     // Open on click
                     $el.on(settings.action, settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl +'', function(){
-                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open')) return false;
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
+                        // Close if already opened
+                        if($(this).parents(settings.triggerParentEl).hasClass('dropit-open') && settings.closeOnAction) {
+                            settings.beforeHide.call(this);
+                            $el.find('.dropit-open').removeClass('dropit-open');
+                            settings.afterHide.call(this);
+                            return false;
+                        }
+                        // Close all other oppened dropdowns if settings.keepOpen is false
+                        if(settings.keepOpen === false) {
+                            dropdowns.each(function() {
+                                $(this).find('.dropit-trigger').removeClass('dropit-open');
+                            });
+                        }
                         settings.beforeShow.call(this);
-                        $(this).parents(settings.triggerParentEl).addClass('dropit-open').find(settings.submenuEl).show();
+                        $(this).parents(settings.triggerParentEl).addClass('dropit-open');
                         settings.afterShow.call(this);
                         return false;
                     });
@@ -40,7 +50,7 @@
                     // Close if outside click
                     $(document).on('click', function(){
                         settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                        $('.dropit-open').removeClass('dropit-open');
                         settings.afterHide.call(this);
                     });
                     
@@ -61,7 +71,9 @@
     }
 
     $.fn.dropit.defaults = {
+        keepOpen: false, // Allow multiple opened dropdowns at the same time
         action: 'click', // The open action for the trigger
+        closeOnAction: false, // Whether to close dropdown on defined action event if it's opened
         submenuEl: 'ul', // The submenu element
         triggerEl: 'a', // The trigger element
         triggerParentEl: 'li', // The trigger parent element
@@ -71,7 +83,5 @@
         beforeHide: function(){}, // Triggers before submenu is hidden
         afterHide: function(){} // Triggers before submenu is hidden
     }
-
-    $.fn.dropit.settings = {}
 
 })(jQuery);
