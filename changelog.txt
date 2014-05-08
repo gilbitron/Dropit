@@ -1,0 +1,11 @@
+*** Dropit Changelog ***
+
+2014.05.08 - version 1.1.0
+ * [New] Added bower.json
+ * [Fixed] Page jumping issue for click menus
+ * [Fixed] Close an open menu if parent element is clicked
+ * [Fixed] Close an open hover menu if mouseleave
+ * [Fixed] jQuery v2.x compatibility
+
+2013.05.01 - version 1.0.0
+ * Initial release
