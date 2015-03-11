@@ -22,7 +22,7 @@
 
                     // Hide initial submenus
                     $el.addClass('dropit')
-                    .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger')
+                    .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger').on('click', settings.parentOnClick)
                     .find(settings.submenuEl).addClass('dropit-submenu').hide();
 
                     // Open on click
@@ -85,6 +85,7 @@
         submenuEl: 'ul', // The submenu element
         triggerEl: 'a', // The trigger element
         triggerParentEl: 'li', // The trigger parent element
+		parentOnClick: function(e){}, // Onclick event for parent element
         afterLoad: function(){}, // Triggers when plugin has loaded
         beforeShow: function(){}, // Triggers before submenu is shown
         afterShow: function(){}, // Triggers after submenu is shown
