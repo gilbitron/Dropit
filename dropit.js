@@ -53,6 +53,7 @@
                         settings.beforeHide.call(this);
                         $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
                         settings.afterHide.call(this);
+                        e.preventDefault();
                     });
 
                     // If hover
