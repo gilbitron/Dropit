@@ -2,6 +2,7 @@
 
 2015.04.09 - version 1.1.1
  * [Fixed] Make sure events are only bound once
+ * [Fixed] 'mouseleave' event for other menus
 
 2014.05.08 - version 1.1.0
  * [New] Added bower.json
