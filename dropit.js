@@ -50,9 +50,12 @@
 
                     // Close if outside click
                     $(document).on('click', function(){
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
+                        var openInstances = $('.dropit-open');
+                        if(openInstances.length > 0) {
+                            settings.beforeHide.call(this);
+                            openInstances.removeClass('dropit-open').find('.dropit-submenu').hide();
+                            settings.afterHide.call(this);
+                        }
                     });
 
                     // If hover
