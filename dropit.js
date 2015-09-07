@@ -1,5 +1,5 @@
 /*
- * Dropit v1.1.0
+ * Dropit v1.1.1
  * http://dev7studios.com/dropit
  *
  * Copyright 2012, Dev7studios
@@ -7,7 +7,15 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-;(function($) {
+;(function (factory) {
+    if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
 
     $.fn.dropit = function(method) {
 
@@ -94,4 +102,9 @@
 
     $.fn.dropit.settings = {};
 
-})(jQuery);
+    return {
+        name: 'dropit',
+        version: '1.1.1'
+    };
+
+}));
