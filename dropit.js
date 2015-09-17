@@ -17,45 +17,39 @@
                 this.dropit.settings = $.extend({}, this.dropit.defaults, options);
                 return this.each(function() {
                     var $el = $(this),
-                         el = this,
-                         settings = $.fn.dropit.settings;
+                        el = this,
+                        settings = $.fn.dropit.settings;
 
                     // Hide initial submenus
                     $el.addClass('dropit')
-                    .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger')
-                    .find(settings.submenuEl).addClass('dropit-submenu').hide();
-
+                        .find('>'+ settings.triggerParentEl +':has('+ settings.submenuEl +')').addClass('dropit-trigger')
+                        .find(settings.submenuEl).addClass('dropit-submenu').hide();
+                    var onClickOutside = function(){
+                        var trigger = $el.find(settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl).get(0);
+                        settings.beforeHide.call(trigger);
+                        $el.find('.dropit-open').removeClass('dropit-open');
+                        $el.find('.dropit-submenu').hide();
+                        settings.afterHide.call(trigger);
+                        $(document).unbind('click', onClickOutside);
+                    };
                     // Open on click
                     $el.off(settings.action).on(settings.action, settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl +'', function(){
                         // Close click menu's if clicked again
                         if(settings.action == 'click' && $(this).parents(settings.triggerParentEl).hasClass('dropit-open')){
+                            $(document).unbind('click', onClickOutside);
                             settings.beforeHide.call(this);
                             $(this).parents(settings.triggerParentEl).removeClass('dropit-open').find(settings.submenuEl).hide();
                             settings.afterHide.call(this);
                             return false;
                         }
 
-                        // Hide open menus
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
-
                         // Open this menu
                         settings.beforeShow.call(this);
                         $(this).parents(settings.triggerParentEl).addClass('dropit-open').find(settings.submenuEl).show();
                         settings.afterShow.call(this);
 
+                        $(document).bind('click', onClickOutside);
                         return false;
-                    });
-
-                    // Close if outside click
-                    $(document).on('click', function(){
-                        var openInstances = $('.dropit-open');
-                        if(openInstances.length > 0) {
-                            settings.beforeHide.call(this);
-                            openInstances.removeClass('dropit-open').find('.dropit-submenu').hide();
-                            settings.afterHide.call(this);
-                        }
                     });
 
                     // If hover
