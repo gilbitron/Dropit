@@ -32,7 +32,7 @@
                             settings.beforeHide.call(this);
                             $(this).parents(settings.triggerParentEl).removeClass('dropit-open').find(settings.submenuEl).hide();
                             settings.afterHide.call(this);
-                            return false;
+                            return;
                         }
 
                         // Hide open menus
