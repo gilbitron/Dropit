@@ -48,18 +48,19 @@
                         return false;
                     });
 
-                    // Close if outside click
-                    $(document).on('click', function(){
-                        settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
-                        settings.afterHide.call(this);
-                    });
-
                     // If hover
                     if(settings.action == 'mouseenter'){
                         $el.on('mouseleave', '.dropit-open', function(){
                             settings.beforeHide.call(this);
                             $(this).removeClass('dropit-open').find(settings.submenuEl).hide();
+                            settings.afterHide.call(this);
+                        });
+                    }
+                    else {
+                        // Close if outside click
+                        $(document).on('click', function(){
+                            settings.beforeHide.call(this);
+                            $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
                             settings.afterHide.call(this);
                         });
                     }
