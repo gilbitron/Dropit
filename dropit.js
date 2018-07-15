@@ -28,21 +28,21 @@
                     // Open on click
                     $el.off(settings.action).on(settings.action, settings.triggerParentEl +':has('+ settings.submenuEl +') > '+ settings.triggerEl +'', function(){
                         // Close click menu's if clicked again
-                        if(settings.action == 'click' && $(this).parents(settings.triggerParentEl).hasClass('dropit-open')){
+                        if(settings.action == 'click' && $(this).parent(settings.triggerParentEl).hasClass('dropit-open')){
                             settings.beforeHide.call(this);
-                            $(this).parents(settings.triggerParentEl).removeClass('dropit-open').find(settings.submenuEl).hide();
+                            $(this).parent(settings.triggerParentEl).removeClass('dropit-open').children(settings.submenuEl).hide();
                             settings.afterHide.call(this);
                             return false;
                         }
 
                         // Hide open menus
                         settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                        $('.dropit-open').removeClass('dropit-open').children('.dropit-submenu').hide();
                         settings.afterHide.call(this);
 
                         // Open this menu
                         settings.beforeShow.call(this);
-                        $(this).parents(settings.triggerParentEl).addClass('dropit-open').find(settings.submenuEl).show();
+                        $(this).parents(settings.triggerParentEl).addClass('dropit-open').children(settings.submenuEl).show();
                         settings.afterShow.call(this);
 
                         return false;
@@ -51,7 +51,7 @@
                     // Close if outside click
                     $(document).on('click', function(){
                         settings.beforeHide.call(this);
-                        $('.dropit-open').removeClass('dropit-open').find('.dropit-submenu').hide();
+                        $('.dropit-open').removeClass('dropit-open').children('.dropit-submenu').hide();
                         settings.afterHide.call(this);
                     });
 
