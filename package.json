@@ -1,0 +1,22 @@
+{
+  "name": "dropit",
+  "version": "1.1.1",
+  "description": "Stupidly Simple jQuery Dropdowns",
+  "main": "dropit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gilbitron/Dropit.git"
+  },
+  "author": "Dev7studios",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gilbitron/Dropit/issues"
+  },
+  "homepage": "http://dev7studios.com/dropit/",
+  "dependencies": {
+    "jquery": ">=1.8.0"
+  }
+}
